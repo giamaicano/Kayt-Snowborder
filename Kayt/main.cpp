@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iomanip>
 #include <time.h>
+#include <math.h>
 
 using namespace std;
 
@@ -95,24 +96,100 @@ void carica_f(caratt ct[])
 }
 
 
-void leggi(){
-    ifstream fin("Partecipanti");
-    string app;
+void visp(caratt ct[]){
+
+    for(int i=0;i<20;i++)
+    {
+        cout<<ct[i].cogn<<"  ";
+
+        for(int i1=0;i1<9;i1++)
+            cout<<ct[i].n_mat[i1];
+
+            cout<<"  ";
+
+        for(int i2=0;i2<30;i2++)
+            cout<<ct[i].x[i2]<<";"<<ct[i].y[i2]<<" ";
 
 
-    fin.close();
+            cout<<endl;
+    }
+
+
+}
+
+
+void calcp(){
+
+    int vp[50];
+
+    for(int i=0;i<20;i++)
+    {
+        for(int k=0;k<30;k++)
+        {
+
+            sqrt(ct[i].x[k]);
+
+
+
+        }
+
+
+
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+void menu(){
+caratt ct[100];
+
+int sc;
+
+    do
+    {
+        cout << endl<<" MENU'" << endl;
+        cout << "1) Visualizzazione della lista dei partecipanti e delle rispettive informazioni sulla gara" << endl
+             << "2) Visualizza il podio della gara e la distanza percorsa da ognuno" << endl
+             << "3) Esci.. " << endl<<endl
+             << ">> ";
+            cin>>sc;
+
+            switch(sc)
+            {
+                case 1:
+                    carica_s(ct);
+                    carica_f(ct);
+                    visp(ct);
+
+                    break;
+
+                case 2:
+
+                    break;
+
+            }
+
+
+    }while(sc!=3);
+
+
+
 }
 
 
 
 int main()
 {
-    caratt ct[100];
-
-    carica_s(ct);
-    carica_f(ct);
-
-
+    menu();
 
 
     return 0;
