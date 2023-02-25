@@ -9,7 +9,7 @@ using namespace std;
 struct caratt{
 
     string cogn;
-    int x[40],y[40],n_mat[10];
+    float x[40],y[40],n_mat[10];
 
 };
 
@@ -39,9 +39,7 @@ void carica_s(caratt ct[]){
         {
             r = rand()%9;
             ct[c].n_mat[h] = r;
-            //cout<<ct[c].n_mat[h];
         }
-        //cout<<endl;
     }
 
     for(int cp=0;cp<20;cp++)
@@ -50,12 +48,8 @@ void carica_s(caratt ct[]){
         {
             ct[cp].x[co] = rand()%100;
             ct[cp].y[co] = rand()%100;
-            //cout<<ct[cp].x[co];
-            //cout<<ct[cp].y[co];
-            //cout<<" ";
-
         }
-        //cout<<endl;
+
     }
 
     fin.close();
@@ -118,31 +112,26 @@ void visp(caratt ct[]){
 }
 
 
-void calcp(){
+void calcp(caratt ct[]){
 
-    int vp[50];
+    float vp[50],pp=0,ss=0,tt=0;
+    int cont;
 
     for(int i=0;i<20;i++)
     {
+        vp[i] = 0;
         for(int k=0;k<30;k++)
         {
-
-            sqrt(ct[i].x[k]);
-
-
+            if(k<29)
+            vp[i] += sqrt(pow((ct[i].x[k] - ct[i].x[k+1]),2) + pow((ct[i].y[k] - ct[i].y[k+1]),2));
 
         }
-
-
 
     }
 
 
 
-
 }
-
-
 
 
 
@@ -173,7 +162,7 @@ int sc;
                     break;
 
                 case 2:
-
+                    calcp(ct);
                     break;
 
             }
