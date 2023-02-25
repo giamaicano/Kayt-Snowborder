@@ -129,6 +129,65 @@ void calcp(caratt ct[]){
 
     }
 
+       cout<<"Il podio della gara di kay-snowboarding e': "<<endl;
+
+
+
+    for(int p=0;p<20;p++)
+    {
+
+        if(pp < vp[p])
+        {
+          pp = vp[p];
+          cont = p;
+        }
+
+    }
+    cout<<ct[cont].cogn<<"  ";
+
+    for(int i=0;i<9;i++)
+    {
+        cout<<ct[cont].n_mat[i];
+    }
+    cout<<"  "<<pp<<"km"<<endl;
+
+
+
+    for(int s=0;s<20;s++)
+    {
+        if(ss < vp[s] && ss < pp)
+        {
+            ss = vp[s];
+            cout<<ss;
+            cont = s;
+        }
+    }
+    cout<<ct[cont].cogn<<"  ";
+
+    for(int i=0;i<9;i++)
+    {
+        cout<<ct[cont].n_mat[i];
+    }
+    cout<<"  "<<ss<<"km"<<endl;
+
+
+
+
+    for(int t=0;t<20;t++)
+    {
+        if(tt < vp[t] && tt < ss)
+        {
+            tt = vp[t];
+            cont = t;
+        }
+    }
+    cout<<ct[cont].cogn<<"  ";
+
+    for(int i=0;i<9;i++)
+    {
+        cout<<ct[cont].n_mat[i];
+    }
+    cout<<"  "<<tt<<"km"<<endl;
 
 
 }
