@@ -112,34 +112,62 @@ void visp(caratt ct[]){
 }
 
 
-void calcp(caratt ct[]){
+void calckm(caratt ct[] ,float vp[]){
 
-    float vp[50],pp=0,ss=0,tt=0;
-    int cont;
+
 
     for(int i=0;i<20;i++)
-    {
-        vp[i] = 0;
-        for(int k=0;k<30;k++)
         {
-            if(k<29)
-            vp[i] += sqrt(pow((ct[i].x[k] - ct[i].x[k+1]),2) + pow((ct[i].y[k] - ct[i].y[k+1]),2));
+            vp[i] = 0;
+            for(int k=0;k<30;k++)
+            {
+                if(k<29)
+                vp[i] += sqrt(pow((ct[i].x[k] - ct[i].x[k+1]),2) + pow((ct[i].y[k] - ct[i].y[k+1]),2));
+
+            }
 
         }
 
+
+    for(int i=0;i<20;i++)
+    {
+        cout<<ct[i].cogn<<"  ";
+
+        for(int i1=0;i1<9;i1++)
+            cout<<ct[i].n_mat[i1];
+
+            cout<<"  "<<vp[i];
+
+            cout<<endl;
     }
 
-       cout<<"Il podio della gara di kay-snowboarding e': "<<endl;
+
+
+}
+
+
+
+
+
+void calcp(caratt ct[] , float vp[]){
+
+    float pp=0,ss=0,tt=0;
+    int cont;
+
+
+       cout<<endl<<endl<<"Il podio della gara di kay-snowboarding e': "<<endl;
 
 
 
     for(int p=0;p<20;p++)
     {
-
+        //cout<<pp<<endl;
         if(pp < vp[p])
         {
+
           pp = vp[p];
           cont = p;
+
         }
 
     }
@@ -149,17 +177,21 @@ void calcp(caratt ct[]){
     {
         cout<<ct[cont].n_mat[i];
     }
-    cout<<"  "<<pp<<"km"<<endl;
+    cout<<"  "<<vp[cont]<<"km"<<endl;
+
 
 
 
     for(int s=0;s<20;s++)
-    {
-        if(ss < vp[s] && ss < pp)
-        {
-            ss = vp[s];
-            cout<<ss;
-            cont = s;
+    {   //cout<<ss<<endl;
+
+        if(ss < vp[s] && vp[s] < pp){
+
+                ss = vp[s];
+                cont = s;
+                //cout<<cont<<endl<<endl<<endl;
+
+
         }
     }
     cout<<ct[cont].cogn<<"  ";
@@ -175,10 +207,13 @@ void calcp(caratt ct[]){
 
     for(int t=0;t<20;t++)
     {
-        if(tt < vp[t] && tt < ss)
+        //cout<<tt<<endl;
+        if(tt < vp[t] && vp[t] < ss)
         {
+
             tt = vp[t];
             cont = t;
+
         }
     }
     cout<<ct[cont].cogn<<"  ";
@@ -199,6 +234,7 @@ void calcp(caratt ct[]){
 
 void menu(){
 caratt ct[100];
+float vp[50];
 
 int sc;
 
@@ -206,8 +242,9 @@ int sc;
     {
         cout << endl<<" MENU'" << endl;
         cout << "1) Visualizzazione della lista dei partecipanti e delle rispettive informazioni sulla gara" << endl
-             << "2) Visualizza il podio della gara e la distanza percorsa da ognuno" << endl
-             << "3) Esci.. " << endl<<endl
+             << "2) Visualizza i km percorsi da ogni partecipante" << endl
+             << "3) Visualizza il podio della gara" << endl
+             << "4) Esci.. " << endl<<endl
              << ">> ";
             cin>>sc;
 
@@ -221,13 +258,17 @@ int sc;
                     break;
 
                 case 2:
-                    calcp(ct);
+                calckm(ct,vp);
+                    break;
+
+                case 3:
+                    calcp(ct,vp);
                     break;
 
             }
 
 
-    }while(sc!=3);
+    }while(sc!=4);
 
 
 
