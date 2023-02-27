@@ -1,3 +1,14 @@
+
+/*!
+
+\file main.cpp
+\author Luciani Giovanni
+\date 27/02/2023
+
+*/
+
+
+
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -122,7 +133,7 @@ void calckm(caratt ct[] ,float vp[]){
             for(int k=0;k<30;k++)
             {
                 if(k<29)
-                vp[i] += sqrt(pow((ct[i].x[k] - ct[i].x[k+1]),2) + pow((ct[i].y[k] - ct[i].y[k+1]),2));
+                vp[i] += sqrt(pow((ct[i].x[k+1] - ct[i].x[k]),2) + pow((ct[i].y[k+1] - ct[i].y[k]),2));
 
             }
 
@@ -142,10 +153,7 @@ void calckm(caratt ct[] ,float vp[]){
     }
 
 
-
 }
-
-
 
 
 
@@ -183,14 +191,11 @@ void calcp(caratt ct[] , float vp[]){
 
 
     for(int s=0;s<20;s++)
-    {   //cout<<ss<<endl;
-
+    {
         if(ss < vp[s] && vp[s] < pp){
 
                 ss = vp[s];
                 cont = s;
-                //cout<<cont<<endl<<endl<<endl;
-
 
         }
     }
@@ -207,7 +212,6 @@ void calcp(caratt ct[] , float vp[]){
 
     for(int t=0;t<20;t++)
     {
-        //cout<<tt<<endl;
         if(tt < vp[t] && vp[t] < ss)
         {
 
@@ -226,10 +230,6 @@ void calcp(caratt ct[] , float vp[]){
 
 
 }
-
-
-
-
 
 
 void menu(){
