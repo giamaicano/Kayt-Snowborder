@@ -47,17 +47,15 @@ void carica_s(caratt ct[]){
 
 /*!
 \var fin
-\brief variabile utilizzata per creare il canale lettura sul file Cognomi.txt
+\brief variabile utilizzata per creare il canale di sola lettura sul file Cognomi.txt
 \var r
 \brief variabile utilizzata per contenere i numeri randomizzati
-\var i
-\brief variabile utilizzata come contatore
 \var v
 \brief variabile vettore utilizzata per contenere i cognomi presenti nel file Cognomi.txt
 */
 
     ifstream fin("Cognomi.txt");
-    int r,i=0;
+    int r;
     string v[70];
 
     srand(time(NULL));
@@ -65,10 +63,9 @@ void carica_s(caratt ct[]){
 
 //!\brief ciclo utilizzato per inserire tutti i cognomi dei partecipanti nel vettore
 
-    while(fin.eof()){
+    for(int i=0;i<50;i++){
 
         getline(fin,v[i]);
-        i++;
     }
 
 //!\brief ciclo utilizzato per selezionare un numero predefinito di atleti per la gara
@@ -91,10 +88,10 @@ void carica_s(caratt ct[]){
         }
     }
 
-//!\brief ciclo utilizzato per scorrere tutti gli atleti selezionati
+//!\brief ciclo esterno utilizzato per scorrere tutti gli atleti selezionati
     for(int cp=0;cp<20;cp++)
     {
-//!\brief ciclo utilizzato per riempire entrambi i vettori delle coordinate di ogni singolo atleta partecipante alla gara
+//!\brief ciclo interno utilizzato per riempire entrambi i vettori delle coordinate di ogni singolo atleta partecipante alla gara
         for(int co=0;co<30;co++)
         {
             ct[cp].x[co] = rand()%101;
@@ -103,20 +100,34 @@ void carica_s(caratt ct[]){
 
     }
 
-//!\brief chiusura del cananale di collegamento con il file
+//!\brief chiusura del cananale di sola lettura del file
     fin.close();
 
 }
 
 
+/*!
+\fn carica_f
+\brief funzione utilizzata per caricare il file con tutti i dati presenti nelle variabili della struct
+\param ct
+\brief parametro vettore di tipo struct
+*/
+
 void carica_f(caratt ct[])
 {
+    /*!
+    \var fout
+    \brief variabile utilizzata per creare il canale di sola scrittura sul file Partecipanti.txt
+    */
+
     ofstream fout("Partecipanti.txt");
 
+    //!\brief ciclo esterno utilizzato per scorrere e scrivere i cognomi di tutti gli atleti selezionati
     for(int i=0;i<20;i++)
     {
         fout<<ct[i].cogn<<"  ";
 
+        //!\brief ciclo interno utilizzato per scrivere il numero matricola nel file
         for(int m=0;m<9;m++)
         {
            fout<<ct[i].n_mat[m];
@@ -124,12 +135,12 @@ void carica_f(caratt ct[])
         }
         fout<<"  ";
 
+        //!\brief ciclo interno utilizzato per scrivere le coordinate nel file
         for(int cc=0;cc<30;cc++)
         {
             fout<<ct[i].x[cc]<<";";
             fout<<ct[i].y[cc]<<" ";
         }
-
 
     fout<<endl;
 
@@ -137,22 +148,28 @@ void carica_f(caratt ct[])
 
 
 
-
+    //!\brief chiusura del cananale di sola scrittura del file
     fout.close();
 }
 
-
+/*!
+\fn visp
+\brief funzione utilizzata per stampare a schermo tutti gli atleti partecipanti
+\param ct
+\brief parametro vettore di tipo struct
+*/
 void visp(caratt ct[]){
 
+//!\brief ciclo esterno utilizzato per scorrere e stampare i cognomi di tutti gli atleti selezionati
     for(int i=0;i<20;i++)
     {
         cout<<ct[i].cogn<<"  ";
-
+    //!\brief ciclo interno utilizzato per stampare il numero matricola
         for(int i1=0;i1<9;i1++)
             cout<<ct[i].n_mat[i1];
 
             cout<<"  ";
-
+    //!\brief ciclo interno utilizzato per stampare le coordinate
         for(int i2=0;i2<30;i2++)
             cout<<ct[i].x[i2]<<";"<<ct[i].y[i2]<<" ";
 
@@ -164,13 +181,20 @@ void visp(caratt ct[]){
 }
 
 
+/*!
+\fn calckm
+\brief funzione utilizzata per calcolare la distanza percorsa nella gara da tutti gli atleti partecipanti
+\param ct
+\brief parametro vettore di tipo struct
+*/
 void calckm(caratt ct[] ,float vp[]){
 
 
-
+//!\brief ciclo esterno utilizzato per scorrere tutti gli atleti selezionati
     for(int i=0;i<20;i++)
         {
             vp[i] = 0;
+        //!\brief ciclo interno per scorrere e calcolare le coordinate di ogni atleta in distanza effettiva in km
             for(int k=0;k<30;k++)
             {
                 if(k<29)
@@ -180,11 +204,11 @@ void calckm(caratt ct[] ,float vp[]){
 
         }
 
-
+//!\brief ciclo esterno utilizzato per scorrere e stampare i cognomi di tutti gli atleti selezionati
     for(int i=0;i<20;i++)
     {
         cout<<ct[i].cogn<<"  ";
-
+//!\brief ciclo interno utilizzato per stampare il numero matricola e la distanza percorsa da ogni atleta
         for(int i1=0;i1<9;i1++)
             cout<<ct[i].n_mat[i1];
 
@@ -197,9 +221,25 @@ void calckm(caratt ct[] ,float vp[]){
 }
 
 
-
+/*!
+\fn calcp
+\brief funzione utilizzata per ricercare e stampare il podio della gara
+\param ct
+\brief parametro vettore di tipo struct
+\param vp
+\brief parametro utilizzato per la ricerca
+*/
 void calcp(caratt ct[] , float vp[]){
-
+/*!
+\var pp
+\brief variabile utilizzata come appoggio per contenere la distanza percorsa del primo
+\var ss
+\brief variabile utilizzata come appoggio per contenere la distanza percorsa del secondo
+\var tt
+\brief variabile utilizzata come appoggio per contenere la distanza percorsa del terzo
+\var cont
+\brief variabile contatore
+*/
     float pp=0,ss=0,tt=0;
     int cont;
 
@@ -207,7 +247,7 @@ void calcp(caratt ct[] , float vp[]){
        cout<<endl<<endl<<"Il podio della gara di kay-snowboarding e': "<<endl;
 
 
-
+ //!\brief ciclo utilizzato per scorrere e ricercare il primo fra tutti gli atleti
     for(int p=0;p<20;p++)
     {
         //cout<<pp<<endl;
@@ -221,7 +261,7 @@ void calcp(caratt ct[] , float vp[]){
 
     }
     cout<<ct[cont].cogn<<"  ";
-
+//!\brief ciclo utilizzato per stampare il numero matricola del primo
     for(int i=0;i<9;i++)
     {
         cout<<ct[cont].n_mat[i];
@@ -230,7 +270,7 @@ void calcp(caratt ct[] , float vp[]){
 
 
 
-
+//!\brief ciclo utilizzato per scorrere e ricercare il secondo fra tutti gli atleti
     for(int s=0;s<20;s++)
     {
         if(ss < vp[s] && vp[s] < pp){
@@ -241,7 +281,7 @@ void calcp(caratt ct[] , float vp[]){
         }
     }
     cout<<ct[cont].cogn<<"  ";
-
+//!\brief ciclo utilizzato per stampare il numero matricola del secondo
     for(int i=0;i<9;i++)
     {
         cout<<ct[cont].n_mat[i];
@@ -250,7 +290,7 @@ void calcp(caratt ct[] , float vp[]){
 
 
 
-
+//!\brief ciclo utilizzato per scorrere e ricercare il terzo fra tutti gli atleti
     for(int t=0;t<20;t++)
     {
         if(tt < vp[t] && vp[t] < ss)
@@ -262,7 +302,7 @@ void calcp(caratt ct[] , float vp[]){
         }
     }
     cout<<ct[cont].cogn<<"  ";
-
+//!\brief ciclo utilizzato per stampare il numero matricola del terzo
     for(int i=0;i<9;i++)
     {
         cout<<ct[cont].n_mat[i];
@@ -272,13 +312,27 @@ void calcp(caratt ct[] , float vp[]){
 
 }
 
+/*!
+fn menu
+\brief funzione utilizzata per contenere un menu
+*/
 
 void menu(){
+/*!
+\var ct
+\brief variabile vettore di tipo struct
+\var vp
+\brief variabile vettore che funge da contenitore
+\var sc
+\brief variabile utilizzata per la scelta delle operazioni del menu'
+
+*/
 caratt ct[100];
 float vp[50];
 
 int sc;
 
+//!\brief ciclo utilizzato per la visualizzazione del menu e lo svolgimento delle funzioni
     do
     {
         cout << endl<<" MENU'" << endl;
@@ -316,9 +370,13 @@ int sc;
 }
 
 
-
+/*!
+\fn main
+\brief funzione utilizzata per richiamare la funzione menu
+*/
 int main()
 {
+
     menu();
 
 
