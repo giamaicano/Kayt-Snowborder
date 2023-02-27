@@ -1,13 +1,10 @@
 
 /*!
-
 \file main.cpp
+\brief programma per il calcolo del podio di una gara di kayt-snowboarding
 \author Luciani Giovanni
 \date 27/02/2023
-
 */
-
-
 
 #include <iostream>
 #include <fstream>
@@ -17,26 +14,65 @@
 
 using namespace std;
 
-struct caratt{
 
+/*!
+\struct caratt
+\brief struct che contiene il cognome, il numero di matricola e le coordinate di ciascun partecipante alla gara
+*/
+struct caratt{
+/*!
+\var cong
+\brief variabile che contiene il cognome di ogni partecipante alla gara
+\var x
+\brief vettore utilizzato per contenere tutte le coordinate x di ogni singolo partecipante
+\var y
+\brief vettore utilizzato per contenere tutte le coordinate y di ogni singolo partecipante
+\var n_mat
+\brief vettore utilizzato per contenere il numero di matricola per l'identificazione di ogno singolo partecipante
+*/
     string cogn;
     float x[40],y[40],n_mat[10];
 
 };
 
+/*!
+
+\fn carica_s
+\brief funzione utilizzata per riempire tutte le variabili presenti nella struct
+\param ct
+\brief parametro vettore di tipo struct
+*/
+
 void carica_s(caratt ct[]){
 
+/*!
+\var fin
+\brief variabile utilizzata per creare il canale lettura sul file Cognomi.txt
+\var r
+\brief variabile utilizzata per contenere i numeri randomizzati
+\var i
+\brief variabile utilizzata come contatore
+\var v
+\brief variabile vettore utilizzata per contenere i cognomi presenti nel file Cognomi.txt
+*/
+
     ifstream fin("Cognomi.txt");
-    int r;
-    char rc;
-    string app,v[70];
+    int r,i=0;
+    string v[70];
 
     srand(time(NULL));
 
-    for(int i=0;i<50;i++)
-    {
+
+//!\brief ciclo utilizzato per inserire tutti i cognomi dei partecipanti nel vettore
+
+    while(fin.eof()){
+
         getline(fin,v[i]);
+        i++;
     }
+
+//!\brief ciclo utilizzato per selezionare un numero predefinito di atleti per la gara
+
 
     for(int t=0;t<20;t++)
     {
@@ -44,8 +80,10 @@ void carica_s(caratt ct[]){
       ct[t].cogn = v[r];
     }
 
-    for(int c=0;c<20;c++){
+//!\brief ciclo utilizzato per scorrere tutti gli atleti selezionati
 
+    for(int c=0;c<20;c++){
+//!\brief ciclo utilizzato per riempire il vettore n_mat con numeri casuali
         for(int h=0;h<9;h++)
         {
             r = rand()%9;
@@ -53,16 +91,19 @@ void carica_s(caratt ct[]){
         }
     }
 
+//!\brief ciclo utilizzato per scorrere tutti gli atleti selezionati
     for(int cp=0;cp<20;cp++)
     {
+//!\brief ciclo utilizzato per riempire entrambi i vettori delle coordinate di ogni singolo atleta partecipante alla gara
         for(int co=0;co<30;co++)
         {
-            ct[cp].x[co] = rand()%100;
-            ct[cp].y[co] = rand()%100;
+            ct[cp].x[co] = rand()%101;
+            ct[cp].y[co] = rand()%101;
         }
 
     }
 
+//!\brief chiusura del cananale di collegamento con il file
     fin.close();
 
 }
